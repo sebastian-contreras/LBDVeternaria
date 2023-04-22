@@ -349,3 +349,9 @@ INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Prednisolona', 4
 INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Ranitidina', 80, 900.00);
 INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Sulfadimetoxina', 150, 1800.00);
 INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Tetraciclina', 100, 1200.00);
+
+-- ----------------------------------------------------
+-- inserccion de Ventas
+-- ----------------------------------------------------
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES (CURRENT_TIMESTAMP, 12345678);
+
