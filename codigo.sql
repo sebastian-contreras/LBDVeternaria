@@ -353,5 +353,98 @@ INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Tetraciclina', 1
 -- ----------------------------------------------------
 -- inserccion de Ventas
 -- ----------------------------------------------------
-INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES (CURRENT_TIMESTAMP, 12345678);
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-22 15:30:00', 45678234);
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-22 12:30:00', '67891234');
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-21 10:15:00', '38976543');
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-20 09:45:00', '67893456');
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-19 14:20:00', '24987654');
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-18 11:30:00', '45678234');
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-17 15:30:00', '67891234');
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-16 10:45:00', '38976543');
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-15 14:15:00', '67893456');
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-14 08:30:00', '24987654');
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-13 16:45:00', '45678234');
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-12 13:30:00', '67891234');
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-11 12:15:00', '38976543');
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-10 09:45:00', '67893456');
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-09 11:20:00', '24987654');
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-08 14:30:00', '45678234');
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-07 15:00:00', '67891234');
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-06 08:45:00', '38976543');
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-05 11:15:00', '67893456');
+INSERT INTO Ventas (`Fecha`, `Personas_DNI`) VALUES ('2023-04-04 12:20:00', '24987654');
+
+-- ----------------------------------------------------
+-- inserccion de Lineas de Ventas
+-- ----------------------------------------------------
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (5.5, 2, 4, 5);
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (3.25, 4, 5, 6);
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (8.0, 1, 6, 7);
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (10.75, 3, 7, 8);
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (4.5, 5, 8, 5);
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (7.25, 2, 9, 6);
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (9.5, 1, 4, 7);
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (12.0, 2, 4, 8);
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (6.25, 3, 5, 5);
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (3.75, 6, 5, 6);
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (8.5, 1, 6, 7);
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (11.25, 2, 6, 8);
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (7.0, 4, 7, 5);
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (4.25, 5, 7, 6);
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (10.0, 2, 8, 7);
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (14.5, 1, 8, 8);
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (5.75, 3, 9, 5);
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (2.5, 7, 9, 6);
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (7.75, 1, 10, 7);
+INSERT INTO LineaDeVentas (`PrecioUnidad`, `Cantidad`, idVentas, idInsumos) VALUES (9.0, 2, 10, 8);
+
+-- ----------------------------------------------------
+-- inserccion de Compras
+-- ----------------------------------------------------
+
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-22 12:00:00', '201332201');
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-21 14:30:00', '202432156');
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-20 10:15:00', '203214567');
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-19 16:45:00', '202198765');
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-18 09:30:00', '2030345621');
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-17 11:00:00', '201332201');
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-16 13:30:00', '202432156');
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-15 15:45:00', '203214567');
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-14 12:15:00', '202198765');
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-13 08:30:00', '2030345621');
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-12 10:00:00', '201332201');
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-11 12:30:00', '202432156');
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-10 14:45:00', '203214567');
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-09 09:15:00', '202198765');
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-08 15:30:00', '2030345621');
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-07 11:00:00', '201332201');
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-06 13:30:00', '202432156');
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-05 15:45:00', '203214567');
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-04 12:15:00', '202198765');
+INSERT INTO Compras (`Fecha`, `Provedores_CUIL`) VALUES ('2023-04-03 08:30:00', '2030345621');
+
+-- ----------------------------------------------------
+-- inserccion de Lineas de Compras
+-- ----------------------------------------------------
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (1, 1, 5.0, 10);
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (1, 2, 7.5, 5);
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (1, 3, 3.0, 20);
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (2, 1, 5.0, 15);
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (2, 4, 12.0, 3);
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (2, 6, 2.5, 30);
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (3, 3, 3.0, 25);
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (3, 5, 6.5, 8);
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (4, 2, 7.5, 7);
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (4, 4, 12.0, 4);
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (4, 6, 2.5, 40);
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (5, 1, 5.0, 20);
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (5, 3, 3.0, 30);
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (6, 2, 7.5, 4);
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (6, 4, 12.0, 2);
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (6, 5, 6.5, 10);
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (7, 3, 3.0, 10);
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (7, 6, 2.5, 20);
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (7,5,8.0,1);
+INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (8,5,2.0,1);
+
 
