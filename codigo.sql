@@ -451,12 +451,61 @@ INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALU
 -- ----------------------------------------------------
 INSERT INTO Cita (Fecha, Consultorio, Monto, Veterinario_DNI, Mascotas_idMascotas, Mascotas_Cliente_DNI)
 VALUES ('2023-04-22 15:30:00', 'A3', 150.0, 31567788, 1, 13456672);
+
+INSERT INTO Cita (Fecha, Consultorio, Monto, Veterinario_DNI, Mascotas_idMascotas, Mascotas_Cliente_DNI)
+VALUES ('2023-04-22 10:00:00', 'A2', 35.0, 38976543, 2, 14456672);
+
+INSERT INTO Cita (Fecha, Consultorio, Monto, Veterinario_DNI, Mascotas_idMascotas, Mascotas_Cliente_DNI)
+VALUES ('2023-04-22 12:00:00', 'A4', 25.0, 38976543, 1, 13456672);
+
+INSERT INTO Cita (Fecha, Consultorio, Monto, Veterinario_DNI, Mascotas_idMascotas, Mascotas_Cliente_DNI)
+VALUES ('2023-04-23 09:00:00', 'A5', 60.0, 24987654, 2, 14456672);
+
+INSERT INTO Cita (Fecha, Consultorio, Monto, Veterinario_DNI, Mascotas_idMascotas, Mascotas_Cliente_DNI)
+VALUES ('2023-04-23 10:00:00', 'A1', 45.0, 38976543, 3, 25567344);
+
+INSERT INTO Cita (Fecha, Consultorio, Monto, Veterinario_DNI, Mascotas_idMascotas, Mascotas_Cliente_DNI)
+VALUES ('2023-04-23 11:00:00', 'A2', 80.0, 24987654, 4, 31567788);
+
+INSERT INTO Cita (Fecha, Consultorio, Monto, Veterinario_DNI, Mascotas_idMascotas, Mascotas_Cliente_DNI)
+VALUES ('2023-04-23 12:00:00', 'A3', 15.0, 38976543, 5, 38768990);
+
+INSERT INTO Cita (Fecha, Consultorio, Monto, Veterinario_DNI, Mascotas_idMascotas, Mascotas_Cliente_DNI)
+VALUES ('2023-04-24 09:00:00', 'A4', 50.0, 24987654, 6, 13456672);
+
+INSERT INTO Cita (Fecha, Consultorio, Monto, Veterinario_DNI, Mascotas_idMascotas, Mascotas_Cliente_DNI)
+VALUES ('2023-04-24 10:00:00', 'A5', 35.0,24987654, 7, 14456672);
+
 -- ----------------------------------------------------
 -- inserccion de Historias
 -- ----------------------------------------------------
 INSERT INTO Historia (Titulo, Descripcion, Imagenes, Cita_idCita, Cita_Veterinario_DNI, Cita_Mascotas_idMascotas, 
 Cita_Mascotas_Cliente_DNI) 
 VALUES ('Título de la historia', 'Descripción de la historia', 'ruta/de/la/imagen.jpg', 1, 31567788, 1, 13456672);
+
+-- DE aqui para abajo no anda jaja
+INSERT INTO Historia (Titulo, Descripcion, Imagenes, Cita_idCita, Cita_Veterinario_DNI, Cita_Mascotas_idMascotas, Cita_Mascotas_Cliente_DNI)
+VALUES ('titulo1', 'descripcion1', 'imagen1', 1, 24987654, 1, 13456672);
+
+INSERT INTO Historia (Titulo, Descripcion, Imagenes, Cita_idCita, Cita_Veterinario_DNI, Cita_Mascotas_idMascotas, Cita_Mascotas_Cliente_DNI)
+VALUES ('titulo2', 'descripcion2', 'imagen2', 2, 38976543, 2, 14456672);
+
+INSERT INTO Historia (Titulo, Descripcion, Imagenes, Cita_idCita, Cita_Veterinario_DNI, Cita_Mascotas_idMascotas, Cita_Mascotas_Cliente_DNI)
+VALUES ('titulo3', 'descripcion3', 'imagen3', 3, 45678234, 3, 25567344);
+INSERT INTO Historia (Titulo, Descripcion, Imagenes, Cita_idCita, Cita_Veterinario_DNI, Cita_Mascotas_idMascotas, Cita_Mascotas_Cliente_DNI)
+VALUES ('titulo4', 'descripcion4', 'imagen4', 7, 24987654, 4, 31567788);
+INSERT INTO Historia (Titulo, Descripcion, Imagenes, Cita_idCita, Cita_Veterinario_DNI, Cita_Mascotas_idMascotas, Cita_Mascotas_Cliente_DNI)
+VALUES ('titulo5', 'descripcion5', 'imagen5', 9, 38976543, 5, 38768990);
+INSERT INTO Historia (Titulo, Descripcion, Imagenes, Cita_idCita, Cita_Veterinario_DNI, Cita_Mascotas_idMascotas, Cita_Mascotas_Cliente_DNI)
+VALUES ('titulo6', 'descripcion6', 'imagen6', 12, 45678234, 6, 13456672);
+INSERT INTO Historia (Titulo, Descripcion, Imagenes, Cita_idCita, Cita_Veterinario_DNI, Cita_Mascotas_idMascotas, Cita_Mascotas_Cliente_DNI)
+VALUES ('titulo7', 'descripcion7', 'imagen7', 13, 24987654, 7, 14456672);
+INSERT INTO Historia (Titulo, Descripcion, Imagenes, Cita_idCita, Cita_Veterinario_DNI, Cita_Mascotas_idMascotas, Cita_Mascotas_Cliente_DNI)
+VALUES ('titulo8', 'descripcion8', 'imagen8', 14, 38976543, 8, 25567344);
+INSERT INTO Historia (Titulo, Descripcion, Imagenes, Cita_idCita, Cita_Veterinario_DNI, Cita_Mascotas_idMascotas, Cita_Mascotas_Cliente_DNI)
+VALUES ('titulo9', 'descripcion9', 'imagen9', 15, 45678234, 9, 31567788);
+INSERT INTO Historia (Titulo, Descripcion, Imagenes, Cita_idCita, Cita_Veterinario_DNI, Cita_Mascotas_idMascotas, Cita_Mascotas_Cliente_DNI)
+VALUES ('titulo10', 'descripcion10', 'imagen10', 16, 24987654, 10, 38768990);
 
 
 
