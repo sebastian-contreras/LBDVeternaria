@@ -446,5 +446,19 @@ INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALU
 INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (7, 6, 2.5, 20);
 INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (7,5,8.0,1);
 INSERT INTO LineaDeCompras (idCompras,idInsumos,`PrecioUnidad`, `Cantidad`) VALUES (8,5,2.0,1);
+-- ----------------------------------------------------
+-- inserccion de Citas
+-- ----------------------------------------------------
+INSERT INTO Cita (Fecha, Consultorio, Monto, Veterinario_DNI, Mascotas_idMascotas, Mascotas_Cliente_DNI)
+VALUES ('2023-04-22 15:30:00', 'A3', 150.0, 31567788, 1, 13456672);
+-- ----------------------------------------------------
+-- inserccion de Historias
+-- ----------------------------------------------------
+INSERT INTO Historia (Titulo, Descripcion, Imagenes, Cita_idCita, Cita_Veterinario_DNI, Cita_Mascotas_idMascotas, 
+Cita_Mascotas_Cliente_DNI) 
+VALUES ('Título de la historia', 'Descripción de la historia', 'ruta/de/la/imagen.jpg', 1, 31567788, 1, 13456672);
+
+
+
 
 
