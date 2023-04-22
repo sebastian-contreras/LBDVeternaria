@@ -118,10 +118,9 @@ CREATE TABLE IF NOT EXISTS `LBD2023G11Veterinaria`.`Provedores` (
   `Telefono` VARCHAR(15) NOT NULL,
   `Estado` BIT(1) NOT NULL DEFAULT 1,
   `Email` VARCHAR(80) NOT NULL,
+  `Nombre` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`CUIL`))
 ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `LBD2023G11Veterinaria`.`Compras`
 -- -----------------------------------------------------
@@ -283,5 +282,70 @@ INSERT INTO Mascotas (Nombre,Edad,Tipo,urlFoto,Personas_dni,sexo) VALUES ('Felix
 INSERT INTO Mascotas (Nombre,Edad,Tipo,urlFoto,Personas_dni,sexo) VALUES ('Charlie', 5, 'Perro', 'https://example.com/charlie.jpg', 29874216, 'Macho');
 INSERT INTO Mascotas (Nombre,Edad,Tipo,urlFoto,Personas_dni,sexo) VALUES ('Coco', 2, 'Hamster', 'https://example.com/coco.jpg', 23981234, 'Hembra');
 INSERT INTO Mascotas (Nombre,Edad,Tipo,urlFoto,Personas_dni,sexo) VALUES ('Pippin', 1, 'Pajaro', 'https://example.com/pippin.jpg', 43789123, 'Macho');
-
-
+-- ----------------------------------------------------
+-- inserccion de Provedores
+-- ----------------------------------------------------
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Estado,Email,Nombre) VALUES (201332201, 'San juan 139', '4943321',0, 'vacDog@gmail.com','VacDog');
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Email,Nombre) VALUES (201234567, 'Av. Italia 1234, Buenos Aires', '011-4798-1234', 'mascotaspremium@gmail.com', 'Mascotas Premium');
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Email,Nombre) VALUES (201987654, 'Calle San Martín 567, Córdoba', '0351-478-9123', 'veterinariaexpress@yahoo.com', 'Veterinaria Express');
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Email,Nombre) VALUES (202345678, 'Calle Belgrano 789, La Plata', '0221-498-4567', 'mascotasonline@gmail.com', 'Mascotas Online');
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Email,Nombre) VALUES (202432156, 'Av. San Martín 4321, Bariloche', '0294-456-7890', 'veterinariadelsur@hotmail.com', 'Veterinaria del Sur');
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Email,Nombre) VALUES (203456781, 'Calle España 2345, Mar del Plata', '0223-478-9156', 'veterinariamarina@yahoo.com', 'Veterinaria Marina');
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Email,Nombre) VALUES (203214567, 'Av. 9 de Julio 567, Rosario', '0341-498-4567', 'clinicaveterinariasanjose@hotmail.com', 'Clínica Veterinaria San José');
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Email,Nombre) VALUES (202345679, 'Calle Mitre 876, Santa Fe', '0342-456-7890', 'vetlife@hotmail.com', 'Vet Life');
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Email,Nombre) VALUES (202198765, 'Calle Rivadavia 2345, Buenos Aires', '011-4857-9012', 'mascotascity@yahoo.com', 'Mascotas City');
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Email,Nombre) VALUES (202345671, 'Av. Independencia 123, La Plata', '0221-478-9012', 'vetintegral@gmail.com', 'Vet Integral');
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Estado,Email,Nombre) VALUES (202345621, 'Calle San Luis 567, San Luis', '0266-478-9012', 1, 'clinicaveterinariasol@hotmail.com', 'Clínica Veterinaria Sol');
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Estado,Email,Nombre) VALUES (202134567, 'Av. Belgrano 789, Salta', '0387-498-1234', 0, 'mascotassalvajes@gmail.com', 'Mascotas Salvajes');
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Estado,Email,Nombre) VALUES (202345111, 'Calle San Juan 2345, San Juan', '0264-456-7890', 0, 'vetlibertad@yahoo.com', 'Vet Libertad');
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Estado,Email,Nombre) VALUES (201234571, 'Av. Pueyrredón 1234, Buenos Aires', '011-4789-3456', 0, 'consultaveterinaria@gmail.com', 'Consulta Veterinaria');
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Estado,Email,Nombre) VALUES (2030345621, 'Calle Catamarca 567, Catamarca', '0383-478-9012', 1, 'vetpura@hotmail.com', 'Vet Pura');
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Estado,Email,Nombre) VALUES (202198761, 'Av. Santa Fe 2345, Buenos Aires', '011-4876-9012', 0, 'mascotasvip@yahoo.com', 'Mascotas VIP');
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Estado,Email,Nombre) VALUES (202345681, 'Calle Mendoza 876, Mendoza', '0261-456-7890', 1, 'vetsaludable@gmail.com', 'Vet Saludable');
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Estado,Email,Nombre) VALUES (201234573, 'Av. Corrientes 1234, Buenos Aires', '011-4789-4567', 1, 'mascotasfelices@hotmail.com', 'Mascotas Felices');
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Estado,Email,Nombre) VALUES (202345691, 'Calle Tucumán 123, Tucumán', '0381-478-9012', 1, 'vetconfianza@yahoo.com', 'Vet Confianza');
+INSERT INTO Provedores (CUIL,Direccion,Telefono,Estado,Email,Nombre) VALUES (202198763, 'Av. Córdoba 2345, Buenos Aires', '011-4856-9012', 1, 'mascotasmimosas@gmail.com', 'Mascotas Mimosas');
+-- ----------------------------------------------------
+-- inserccion de Insumos
+-- ----------------------------------------------------
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Alimento para Perros', 500, 2500.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Alimento para Gatos', 250, 3000.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Collar Antipulgas', 100, 1500.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Shampoo para Perros', 300, 1200.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Shampoo para Gatos', 200, 1300.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Jaula para Hamster', 50, 2000.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Arena Sanitaria para Gatos', 150, 800.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Vitamina para Perros', 75, 3500.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Vitamina para Gatos', 60, 4000.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Cama para Perros', 25, 5000.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Cama para Gatos', 30, 4500.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Comedero para Perros', 200, 500.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Comedero para Gatos', 150, 450.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Juguete para Perros', 400, 700.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Juguete para Gatos', 300, 600.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Correa para Perros', 250, 1000.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Arena para Hamster', 100, 150.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Piedra Mineral para Pájaros', 50, 300.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Bebedero para Conejos', 50, 800.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Pienso para Aves', 300, 1000.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Antiparasitario para Perros', 100, 1800.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Acepromacina', 100, 1200.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Amoxicilina', 50, 800.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Atropina', 75, 900.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Buscapina', 80, 1000.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Carprofeno', 150, 1500.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Cefalexina', 60, 750.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Clindamicina', 40, 1300.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Dexametasona', 90, 1800.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Dipirona', 200, 1000.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Enrofloxacina', 50, 1200.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Fenilbutazona', 70, 1500.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Ivermectina', 120, 2000.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Ketoprofeno', 100, 1800.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Meloxicam', 80, 1500.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Metoclopramida', 60, 1000.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Pimobendan', 30, 3000.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Prednisolona', 40, 1200.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Ranitidina', 80, 900.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Sulfadimetoxina', 150, 1800.00);
+INSERT INTO Insumos (Nombre, Cantidad, precioRefVenta) VALUES ('Tetraciclina', 100, 1200.00);
