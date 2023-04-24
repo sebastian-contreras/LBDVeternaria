@@ -149,6 +149,8 @@ CREATE TABLE IF NOT EXISTS `LBD2023G11Veterinaria`.`Insumos` (
   PRIMARY KEY (`idInsumos`))
 ENGINE = InnoDB;
 
+-- Agrego Indice Unique a tabla INSUMOS columna Nombre
+ALTER TABLE `Insumos` ADD CONSTRAINT `U_InsumoNombre` UNIQUE (`Nombre`);
 
 -- -----------------------------------------------------
 -- Table `LBD2023G11Veterinaria`.`LineaDeCompras`
