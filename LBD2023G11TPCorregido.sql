@@ -36,11 +36,12 @@ CREATE TABLE IF NOT EXISTS `LBD2023G11Veterinaria`.`Personas` (
   `Nombre` VARCHAR(25) NOT NULL,
   `Telefono` VARCHAR(15) NOT NULL,
   `Email` VARCHAR(45) NOT NULL,
-  `Rol` ENUM('Cliente', 'Veterinario', 'Administrador') NOT NULL DEFAULT 'Cliente',
+  `Rol` ENUM('Cliente', 'Veterinario','Empleado', 'Administrador') NOT NULL DEFAULT 'Cliente',
   `Matricula` VARCHAR(45) NULL DEFAULT NULL,
   constraint privilegios CHECK(
     (Rol='Veterinario' AND Matricula IS NOT NULL) OR 
     (Rol='Cliente' AND Matricula IS NULL) OR 
+    (Rol='Empleado' AND Matricula IS NULL) OR 
     (Rol='Administrador' AND Matricula IS NULL)),
   `Direccion` TINYTEXT NULL,
   PRIMARY KEY (`DNI`),
@@ -192,17 +193,24 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `LBD2023G11Veterinaria`.`Ventas` (
   `idVentas` INT NOT NULL AUTO_INCREMENT,
-  `Personas_DNI` INT NULL,
+  `Cliente_DNI` INT NULL,
   `Fecha` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Servicio` ENUM('VENTA', 'CONSULTA', 'VACUNACION', 'CIRUGIA', 'DIAGNOSTICO') NULL DEFAULT 'VENTA',
+  `Vendedor_DNI` INT NOT NULL,
   PRIMARY KEY (`idVentas`),
-  INDEX `fk_Ventas_Personas1_idx` (`Personas_DNI` ASC),
+  INDEX `fk_Ventas_Personas1_idx` (`Cliente_DNI` ASC) VISIBLE,
+  INDEX `fk_Ventas_Personas2_idx` (`Vendedor_DNI` ASC) VISIBLE,
   CONSTRAINT `fk_Ventas_Personas1`
-    FOREIGN KEY (`Personas_DNI`)
+    FOREIGN KEY (`Cliente_DNI`)
+    REFERENCES `LBD2023G11Veterinaria`.`Personas` (`DNI`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Ventas_Personas2`
+    FOREIGN KEY (`Vendedor_DNI`)
     REFERENCES `LBD2023G11Veterinaria`.`Personas` (`DNI`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `LBD2023G11Veterinaria`.`LineaDeVentas`
@@ -235,6 +243,17 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
 -- CONSULTAS
+-- ----------------------------------------------------
+-- inserccion de Empleados
+-- ----------------------------------------------------
+INSERT INTO Personas (DNI, Nombre, Apellido, Telefono, Email, Rol, Matricula, Direccion)
+VALUES (98765432, 'Juan', 'Perez', '123456789', 'juanperez@example.com', 'Empleado', NULL, 'Ciudad de Ejemplo');
+INSERT INTO Personas (DNI, Nombre, Apellido, Telefono, Email, Rol, Matricula, Direccion)
+VALUES (54321098, 'María', 'López', '987654321', 'marialopez@example.com', 'Empleado', NULL, 'Otro Lugar');
+INSERT INTO Personas (DNI, Nombre, Apellido, Telefono, Email, Rol, Matricula, Direccion)
+VALUES (87654321, 'Carlos', 'Gómez', '456789123', 'carlosgomez@example.com', 'Empleado', NULL, 'Algún Sitio');
+
+
 -- ----------------------------------------------------
 -- inserccion de clientes
 -- ----------------------------------------------------
@@ -370,32 +389,32 @@ INSERT INTO Insumos (Insumo, Cantidad, precioRefVenta) VALUES ('Tetraciclina', 1
 -- ----------------------------------------------------
 -- inserccion de Ventas
 -- ----------------------------------------------------
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('45678234','2023-04-22 15:30:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('67891234','2023-04-22 12:30:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('38976543','2023-04-21 10:15:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('67893456','2023-04-20 09:45:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('24987654','2023-04-19 14:20:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('45678234','2023-04-18 11:30:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('67891234','2023-04-17 15:30:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('38976543','2023-04-16 10:45:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('67893456','2023-04-15 14:15:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('24987654','2023-04-14 08:30:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('45678234','2023-04-13 16:45:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('67891234','2023-04-12 13:30:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('38976543','2023-04-11 12:15:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('67893456','2023-04-10 09:45:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('24987654','2023-04-09 11:20:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('45678234','2023-04-08 14:30:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('67891234','2023-04-07 15:00:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('38976543','2023-04-06 08:45:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('67893456','2023-04-05 11:15:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('24987654','2023-04-04 12:20:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('24987654','2023-04-09 11:20:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('45678234','2023-04-08 14:30:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('67891234','2023-04-07 15:24:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('38976543','2023-04-06 08:01:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('67893456','2023-04-05 12:45:00' );
-INSERT INTO Ventas (`Personas_DNI`,`Fecha` ) VALUES ('24987654','2023-04-04 12:30:00' );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('45678234','2023-04-22 15:30:00',54321098 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('67891234','2023-04-22 12:30:00',54321098 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('38976543','2023-04-21 10:15:00',54321098 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('67893456','2023-04-20 09:45:00',54321098 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('24987654','2023-04-19 14:20:00',54321098 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('45678234','2023-04-18 11:30:00',54321098 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('67891234','2023-04-17 15:30:00',54321098 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('38976543','2023-04-16 10:45:00',98765432 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('67893456','2023-04-15 14:15:00',98765432 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('24987654','2023-04-14 08:30:00',98765432 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('45678234','2023-04-13 16:45:00',98765432 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('67891234','2023-04-12 13:30:00',98765432 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('38976543','2023-04-11 12:15:00',98765432 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('67893456','2023-04-10 09:45:00',54321098 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('24987654','2023-04-09 11:20:00',54321098 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('45678234','2023-04-08 14:30:00',54321098 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('67891234','2023-04-07 15:00:00',54321098 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('38976543','2023-04-06 08:45:00',87654321 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('67893456','2023-04-05 11:15:00',87654321 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('24987654','2023-04-04 12:20:00',87654321 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('24987654','2023-04-09 11:20:00',87654321 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('45678234','2023-04-08 14:30:00',87654321 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('67891234','2023-04-07 15:24:00',54321098 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('38976543','2023-04-06 08:01:00',54321098 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('67893456','2023-04-05 12:45:00',54321098 );
+INSERT INTO Ventas (`Cliente_DNI`,`Fecha`,`Vendedor_DNI`) VALUES ('24987654','2023-04-04 12:30:00',54321098 );
 
 
 -- ----------------------------------------------------
@@ -522,13 +541,11 @@ VALUES (17, 67893456, 45678234, '2023-05-18 11:15:00', 'A3', 65.00);
 	INSERT INTO Citas (Mascota_idMascota, Mascota_Cliente_DNI, Veterinario_DNI, Fecha, Consultorio, Monto)
 VALUES (18, 38976543, 67893456, '2023-05-19 14:00:00', 'A2', 50.00);
 	INSERT INTO Citas (Mascota_idMascota, Mascota_Cliente_DNI, Veterinario_DNI, Fecha, Consultorio, Monto)
-VALUES (19, 67891234, 24987654, '2023-05-19 16:30:00', 'A4', 60.00);
-
-    -- agrego para probar consulta, agrego otra cita a otra mascota
+VALUES (19, 67891234, 24987654, '2023-03-19 16:30:00', 'A4', 60.00);
 INSERT INTO Citas (Mascota_idMascota, Mascota_Cliente_DNI, Veterinario_DNI, Fecha, Consultorio, Monto)
-VALUES (19, 67891234, 24987654, '2023-05-19 16:30:00', 'A4', 60.00);
+VALUES (19, 67891234, 24987654, '2023-05-12 13:30:00', 'A4', 60.00);
 INSERT INTO Citas (Mascota_idMascota, Mascota_Cliente_DNI, Veterinario_DNI, Fecha, Consultorio, Monto)
-VALUES (19, 67891234, 24987654, '2023-05-19 16:30:00', 'A4', 60.00);
+VALUES (19, 67891234, 24987654, '2023-03-01 18:30:00', 'A4', 60.00);
 
 -- --------------------------------------------------------------------
 -- Inserccion de Historias
