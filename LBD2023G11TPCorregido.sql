@@ -569,7 +569,9 @@ VALUES
 (16,16, '24987654', '67891234', 'Historia 6', 'Esta es la descripción de la historia 6', 'imagen2'),
 (17,17, '67893456', '45678234', 'Historia 7', 'Esta es la descripción de la historia 7', NULL),
 (18,18, '38976543', '67893456', 'Historia 8', 'Esta es la descripción de la historia 8', NULL),
-(19,19, '67891234', '24987654', 'Historia 9', 'Esta es la descripción de la historia 9', NULL);
+(19,19, '67891234', '24987654', 'Historia 9', 'Esta es la descripción de la historia 9', NULL),
+(20,19, '67891234', '24987654', 'Historia 20 idmascota 19', 'Esta es la descripción de la historia 9', NULL),
+(21,19, '67891234', '24987654', 'Historia 30 idmascota 19', 'Esta es la descripción de la historia 9', NULL);
 
 
 
