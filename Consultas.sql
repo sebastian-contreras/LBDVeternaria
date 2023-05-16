@@ -257,7 +257,7 @@ JSON_OBJECT("Titulo",NULL),JSON_OBJECT("Descripcion",NULL),JSON_OBJECT("Imagenes
 CREATE VIEW HistoriaClinicaMascota AS
 SELECT m.idMascotas,m.Tipo,m.sexo,m.Mascota,m.Personas_DNI as 'Dueno',c.Fecha,h.Titulo,h.Descripcion,h.Imagenes FROM
 Mascotas AS m JOIN Citas as c ON m.idMascotas = c.Mascota_idMascota
-JOIN Historias as h ON h.Citas_idCita = c.idCita 
+JOIN Historias as h ON h.Citas_idCita = c.idCita AND c.Mascota_idMascota = h.Citas_Mascota_idMascota
 WHERE m.idMascotas=19;
 
 SELECT * FROM HistoriaClinicaMascota;
