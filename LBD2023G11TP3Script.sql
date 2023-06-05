@@ -91,8 +91,8 @@ CREATE TABLE IF NOT EXISTS `LBD2023G11Veterinaria`.`Citas` (
   CONSTRAINT `fk_Cita_Mascotas1`
     FOREIGN KEY (`Mascota_idMascota` , `Mascota_Cliente_DNI`)
     REFERENCES `LBD2023G11Veterinaria`.`Mascotas` (`idMascotas` , `Personas_DNI`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -113,8 +113,8 @@ CREATE TABLE IF NOT EXISTS `LBD2023G11Veterinaria`.`Historias` (
   CONSTRAINT `fk_Historias_Citas1`
     FOREIGN KEY (`Citas_idCita` , `Citas_Mascota_idMascota` , `Citas_Mascota_Cliente_DNI` , `Citas_Veterinario_DNI`)
     REFERENCES `LBD2023G11Veterinaria`.`Citas` (`idCita` , `Mascota_idMascota` , `Mascota_Cliente_DNI` , `Veterinario_DNI`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -305,7 +305,8 @@ VALUES
 (24987654, 'Jerry', '2021-02-11', 'Gato', 'https://www.example.com/jerry.jpg', 'Macho'),
 (67893456, 'Daisy', '2019-04-30', 'Hamster', 'https://www.example.com/daisy.jpg', 'Hembra'),
 (38976543, 'Goldie', '2017-08-17', 'Pez', 'https://www.example.com/goldie.jpg', 'Hembra'),
-(67891234, 'Toto', '2019-10-10', 'Perro', 'https://www.example.com/toto.jpg', 'Macho');
+(67891234, 'Toto', '2019-10-10', 'Perro', 'https://www.example.com/toto.jpg', 'Macho'),
+(67891234, 'Paul', '2013-10-10', 'Perro', 'https://www.example.com/paul.jpg', 'Macho');
 
 -- -------------------------------------------
 -- Inserccion de Provedores
@@ -898,51 +899,6 @@ SELECT * FROM HistoriaClinicaMascota;
 -- desde donde se la hizo y todas las información necesaria para la auditoría (en el caso
 -- de las modificaciones, se deberán auditar tanto los valores viejos como los nuevos)
 
--- Trigger de inserción Personas
-
--- DROP TABLE IF EXISTS `AuditoriaPersonas` ;
-
--- CREATE TABLE IF NOT EXISTS `AuditoriaPersonas` (
---   `ID` INT NOT NULL AUTO_INCREMENT,
---   `DNI` INT NOT NULL,
---   `Apellido` VARCHAR(25) NOT NULL,
---   `Nombre` VARCHAR(25) NOT NULL,
---   `Telefono` VARCHAR(15) NOT NULL,
---   `Email` VARCHAR(45) NOT NULL,
---   `Rol` ENUM('Cliente', 'Veterinario','Empleado', 'Administrador') NOT NULL DEFAULT 'Cliente',
---   `Matricula` VARCHAR(45) NULL DEFAULT NULL,
---   `Direccion` TINYTEXT NULL,
---   `Tipo` CHAR(1) NOT NULL, -- tipo de operación (I: Inserción, B: Borrado, M: Modificación)
---   `Usuario` VARCHAR(45) NOT NULL,  
---   `Maquina` VARCHAR(45) NOT NULL,  
---   `Fecha` DATETIME NOT NULL,
---   PRIMARY KEY (`ID`)
--- );
--- DROP TRIGGER `Trig_Personas_Insercion` ;
--- DELIMITER //
--- CREATE TRIGGER `Trig_Personas_Insercion` 
--- AFTER INSERT ON `Personas` FOR EACH ROW
--- BEGIN
--- 	INSERT INTO AuditoriaPersonas (ID,DNI,Apellido,Nombre,Telefono,Email,Rol,Matricula,Direccion,Tipo,Usuario,Maquina,Fecha) VALUES (
--- 		DEFAULT, 
--- 		NEW.DNI,
--- 		NEW.Apellido, 
---         NEW.Nombre,
---         NEW.Telefono,
---         NEW.Email,
---         NEW.Rol,
---         NEW.Matricula,
---         NEW.Direccion,
--- 		'I', 
--- 		SUBSTRING_INDEX(USER(), '@', 1), 
--- 		SUBSTRING_INDEX(USER(), '@', -1), 
--- 		NOW()
---   );
--- END //
--- SELECT * FROM AuditoriaPersonas;
--- INSERT INTO Personas (DNI,Nombre,Apellido,Telefono,Email,Direccion) VALUES (306512891, 'Sofía', 'Fernández', '0343154769', 'sfrnandez@yahoo.com','Calle Mitre 876, Santa Fe');
--- Delete from Personas where dni=306512891;
-
 -- Tabla Auditoria Mascotas
 DROP TABLE IF EXISTS `AuditoriaMascotas` ;
 
@@ -1183,6 +1139,9 @@ SALIR:BEGIN
     ELSEIF NOT EXISTS (SELECT * FROM Mascotas WHERE idMascotas = midMascotas AND Personas_DNI = mPersonas_DNI) THEN 
 			SET	mensaje = 'No existe esa mascota con esa persona';
 			LEAVE SALIR; 
+	ELSEIF EXISTS (SELECT * FROM Citas WHERE Mascota_idMascota = midMascotas) THEN 
+			SET	mensaje = 'No se puede realizar esta operacion y que existe datos adjuntos.';
+			LEAVE SALIR; 
 	ELSE 
 		START TRANSACTION; 
         
@@ -1203,9 +1162,12 @@ SELECT @resultado AS Mensaje;
 CALL BorrarMascota(1,25567344,@resultado); -- ERROR > NO COINCIDE los datos de la persona y mascota
 SELECT @resultado AS Mensaje;
 
-CALL BorrarMascota(17,67893456,@resultado); -- Funciona > Se Borra
+CALL BorrarMascota(17,67893456,@resultado); -- ERROR > Mascotas con Datos agregados
 SELECT @resultado AS Mensaje;
 
+CALL BorrarMascota(20,67891234,@resultado); -- FUNCIONA
+SELECT @resultado AS Mensaje;
+select * from Mascotas;
 -- 7. Búsqueda de una mascota.
 
 DROP PROCEDURE IF EXISTS BusquedaMascota;
