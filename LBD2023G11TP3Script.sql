@@ -884,6 +884,7 @@ JOIN Historias as h ON h.Citas_idCita = c.idCita
 WHERE m.idMascotas=19;
 
 SELECT * FROM HistoriaClinicaMascota;
+
 -- ------------------------------------------------------------------------------------------------------------------
 -- 						 TRABAJO PRACTICO Nº3 
 -- --------------------------------------------------------------------------------------------------------------------
@@ -1022,8 +1023,7 @@ DELIMITER ;
 -- procedimientos almacenados, incluyendo el control de errores lógicos y mensajes de error:
 
 -- 4. Creación de una mascota.
-SELECT *FROM Mascotas;
-DELETE FROM Mascotas WHERE idMascotas = 42;
+
 DROP PROCEDURE IF EXISTS AltaMascota;
 
 DELIMITER // 
@@ -1054,18 +1054,6 @@ SALIR:BEGIN
 	END IF; 
 END 
 // DELIMITER ; 
-
-CALL AltaMascota(14456672, NULL, '2018-04-12', 'Perro', 'https://www.example.com/rufus.jpg', 'Macho',@resultado); -- ERROR--> Nombre=NULL
-SELECT @resultado AS Mensaje; 
-
-CALL AltaMascota(14456672, 'KAME', '2018-04-12', Null, 'https://www.example.com/rufus.jpg', 'Macho',@resultado);  -- ERROR --> Tipo == NULL 
-SELECT @resultado AS Mensaje; 
-
-CALL AltaMascota(124, 'KAME', '2018-04-12', 'Perro', 'https://www.example.com/rufus.jpg', 'Macho',@resultado);-- ERROR --> No existe persona
-SELECT @resultado AS Mensaje;
-
-CALL AltaMascota(14456672, 'KAME', '2018-04-12', 'Perro', 'https://www.example.com/rufus.jpg', 'Macho',@resultado); -- > Funciona
-SELECT @resultado AS Mensaje; 
 
 -- 5. Modificación de una mascota.
 
@@ -1106,23 +1094,9 @@ CREATE PROCEDURE ModificarMascota(
 	END IF; 
 END 
 // DELIMITER ;
-
-SELECT *FROM Mascotas;
-CALL ModificarMascota(2,NULL,'Ronaldo','2023-01-01', 'Perro', 'http://neymar.com/foto.jpg', 'Hembra',@resultado); -- Error --> dni== NULL
-SELECT @resultado AS Mensaje;
-
-CALL ModificarMascota(3,25567344,'Ronaldo','2023-01-01', NULL, 'http://neymar.com/foto.jpg', 'Hembra',@resultado); -- Error --> tipo== NULL
-SELECT @resultado AS Mensaje;
-
-CALL ModificarMascota(2,14456672,'Ronaldo','2023-01-01', 'Perro', 'http://neymar.com/foto.jpg', 'Hembra',@resultado); -- Error --> No coincidi el dni y id moscota 
-SELECT @resultado AS Mensaje;
-
-CALL ModificarMascota(3,25567344,'ROCO','2023-01-01', 'Perro', 'http://ROCO.com/foto.jpg', 'Hembra',@resultado); -- Se modifica --> FUNCIONA
-SELECT @resultado AS Mensaje;
     
 -- 6. Borrado de una mascota. 
-
--- Para borrar una mascota, debo borrar primero la cita si es que tiene y su historia si la cita presenta una historia
+-- Para borrar una mascota,primero debo saber si tiene una cita e historia. Si no tiene se puede borrar.
 
 DROP PROCEDURE IF EXISTS BorrarMascota; 
 
@@ -1140,34 +1114,17 @@ SALIR:BEGIN
 			SET	mensaje = 'No existe esa mascota con esa persona';
 			LEAVE SALIR; 
 	ELSEIF EXISTS (SELECT * FROM Citas WHERE Mascota_idMascota = midMascotas) THEN 
-			SET	mensaje = 'No se puede realizar esta operacion y que existe datos adjuntos.';
+			SET	mensaje = 'No se puede realizar esta operacion, existe datos adjuntos (Citas).';
 			LEAVE SALIR; 
 	ELSE 
 		START TRANSACTION; 
-        
             DELETE FROM Mascotas WHERE idMascotas=midMascotas AND Personas_DNI=mPersonas_DNI;
-            
             SET	mensaje = 'Se borro exitosamente la mascota';
 		COMMIT; 
 	END IF; 
 END // 
 DELIMITER ; 
 
-CALL BorrarMascota(1,NULL,@resultado); -- ERROR > Persona_DNI = NULL
-SELECT @resultado AS Mensaje;
-
-CALL BorrarMascota(NULL,67893456,@resultado); -- ERROR > idMascota = NULL
-SELECT @resultado AS Mensaje;
-
-CALL BorrarMascota(1,25567344,@resultado); -- ERROR > NO COINCIDE los datos de la persona y mascota
-SELECT @resultado AS Mensaje;
-
-CALL BorrarMascota(17,67893456,@resultado); -- ERROR > Mascotas con Datos agregados
-SELECT @resultado AS Mensaje;
-
-CALL BorrarMascota(20,67891234,@resultado); -- FUNCIONA
-SELECT @resultado AS Mensaje;
-select * from Mascotas;
 -- 7. Búsqueda de una mascota.
 
 DROP PROCEDURE IF EXISTS BusquedaMascota;
@@ -1176,10 +1133,8 @@ DELIMITER //
 CREATE PROCEDURE BusquedaMascota(
 	midMascota INT, 
     OUT Mensaje VARCHAR(100))
-
     -- Realiza una busqueda por el id de la mascota
     -- Si ingresa valores incorrectos devolvera un mensaje de error
-
 SALIR: BEGIN
 	IF (midMascota IS NULL) THEN 
 			SET	mensaje = 'Error en los datos de la mascota';
@@ -1204,18 +1159,6 @@ SALIR: BEGIN
 	END IF; 
 END // 
 DELIMITER ; 
-
-CALL BusquedaMascota(NULL,@resultado); -- ERROR --> idMascota == NULL
-SELECT @resultado AS Mensaje;
-
-CALL BusquedaMascota(50,@resultado); -- ERROR --> No existe esa mascota
-SELECT @resultado AS Mensaje;
-
-CALL BusquedaMascota(30,@resultado); -- ERROR --> No existe esa mascota
-SELECT @resultado AS Mensaje;
-
-CALL BusquedaMascota(5,@resultado); -- Funciona
-SELECT @resultado AS Mensaje;
 
 -- 8. Dado una persona , mostrar sus turnos (fecha y hora) entre un rango de fechas.
 -- Ordenar según la fecha en orden cronológico inverso, y luego según la hora en
@@ -1263,19 +1206,6 @@ BEGIN
 END // 
 DELIMITER ;
 
-CALL MostrarTurnos(NULL,'2023-03-01','2023-05-30',@resultados); --  ERROR > DNI==NULL
-SELECT @resultados AS Mensaje;
-
-CALL MostrarTurnos(67891234,'2023-03-01',NULL,@resultados); --  ERROR > FECHA==NULL
-SELECT @resultados AS Mensaje;
-
-CALL MostrarTurnos(12345067,'2023-03-01','2023-05-30',@resultados); -- No existe esa persona--> ERROR
-SELECT @resultados AS Mensaje;
-
-CALL MostrarTurnos(67891234,'2023-05-30','2023-03-01',@resultados); -- Funciona
-SELECT @resultados AS Mensaje;
- SELECT *FROM Personas;
-
 -- 9. Dado un mes mostrar los insumos que se vendieron y compraron. Incluir en 0
 -- cuando no se vendió y/o compro.
 
@@ -1310,23 +1240,10 @@ SALIR: BEGIN
 END //
 DELIMITER ;
 
-CALL MostrarInsumos(NULL,@resultado); -- ERROR --> Valores Null
-SELECT @resultado AS Mensaje;
-
-CALL MostrarInsumos(13,@resultado); -- ERROR --> No hay mes 13
-SELECT @resultado AS Mensaje;
-
-CALL MostrarInsumos(0,@resultado); -- ERROR --> No hay mes 0
-SELECT @resultado AS Mensaje;
-
-CALL MostrarInsumos(05,@resultado); -- > Funciona
-SELECT @resultado AS Mensaje;
-
 -- 10. Realizar un procedimiento almacenado con alguna funcionalidad que considere
 -- de interés (distinto del tp2)
 
 -- Dado un cliente mostrar todas sus mascotas
-
 DROP PROCEDURE IF EXISTS BusquedaMascotaCliente;
 
 DELIMITER // 
@@ -1359,6 +1276,101 @@ SALIR: BEGIN
 END // 
 DELIMITER ; 
 
+-- 11. Incluir las sentencias de llamada a los procedimientos. Para cada uno hacer 4
+-- llamadas (una con salida correcta y las otras 3 con diferentes errores explicando su
+-- intención en un comentario).
+
+-- 4. Alta Mascota
+
+CALL AltaMascota(14456672, NULL, '2018-04-12', 'Perro', 'https://www.example.com/rufus.jpg', 'Macho',@resultado); -- ERROR--> Nombre=NULL
+SELECT @resultado AS Mensaje; 
+
+CALL AltaMascota(14456672, 'KAME', '2018-04-12', Null, 'https://www.example.com/rufus.jpg', 'Macho',@resultado);  -- ERROR --> Tipo == NULL 
+SELECT @resultado AS Mensaje; 
+
+CALL AltaMascota(124, 'KAME', '2018-04-12', 'Perro', 'https://www.example.com/rufus.jpg', 'Macho',@resultado);-- ERROR --> No existe persona
+SELECT @resultado AS Mensaje;
+
+CALL AltaMascota(14456672, 'KAME', '2018-04-12', 'Perro', 'https://www.example.com/rufus.jpg', 'Macho',@resultado); -- > Funciona
+SELECT @resultado AS Mensaje; 
+
+-- 5. Modificar Mascota
+
+SELECT *FROM Mascotas;
+CALL ModificarMascota(2,NULL,'Ronaldo','2023-01-01', 'Perro', 'http://neymar.com/foto.jpg', 'Hembra',@resultado); -- Error --> dni== NULL
+SELECT @resultado AS Mensaje;
+
+CALL ModificarMascota(3,25567344,'Ronaldo','2023-01-01', NULL, 'http://neymar.com/foto.jpg', 'Hembra',@resultado); -- Error --> tipo== NULL
+SELECT @resultado AS Mensaje;
+
+CALL ModificarMascota(2,14456672,'Ronaldo','2023-01-01', 'Perro', 'http://neymar.com/foto.jpg', 'Hembra',@resultado); -- Error --> No coincidi el dni y id moscota 
+SELECT @resultado AS Mensaje;
+
+CALL ModificarMascota(3,25567344,'ROCO','2023-01-01', 'Perro', 'http://ROCO.com/foto.jpg', 'Hembra',@resultado); -- Se modifica --> FUNCIONA
+SELECT @resultado AS Mensaje;
+
+-- 6. Borrar Mascota
+
+CALL BorrarMascota(1,NULL,@resultado); -- ERROR ==> Persona_DNI = NULL
+SELECT @resultado AS Mensaje;
+
+CALL BorrarMascota(NULL,67893456,@resultado); -- ERROR ==> idMascota = NULL
+SELECT @resultado AS Mensaje;
+
+CALL BorrarMascota(1,25567344,@resultado); -- ERROR ==> NO COINCIDE los datos de la persona y mascota
+SELECT @resultado AS Mensaje;
+
+CALL BorrarMascota(17,67893456,@resultado); -- ERROR ==> Mascotas con Datos agregados
+SELECT @resultado AS Mensaje;
+
+CALL BorrarMascota(20,67891234,@resultado); -- FUNCIONA
+SELECT @resultado AS Mensaje;
+
+-- 7. Busqueda de una mascota
+
+CALL BusquedaMascota(NULL,@resultado); -- ERROR --> idMascota == NULL
+SELECT @resultado AS Mensaje;
+
+CALL BusquedaMascota(50,@resultado); -- ERROR --> No existe esa mascota
+SELECT @resultado AS Mensaje;
+
+CALL BusquedaMascota(30,@resultado); -- ERROR --> No existe esa mascota
+SELECT @resultado AS Mensaje;
+
+CALL BusquedaMascota(5,@resultado); -- Funciona
+SELECT @resultado AS Mensaje; 
+
+-- 8
+
+CALL MostrarTurnos(NULL,'2023-03-01','2023-05-30',@resultados); --  ERROR > DNI==NULL
+SELECT @resultados AS Mensaje;
+
+CALL MostrarTurnos(67891234,'2023-03-01',NULL,@resultados); --  ERROR > FECHA==NULL
+SELECT @resultados AS Mensaje;
+
+CALL MostrarTurnos(12345067,'2023-03-01','2023-05-30',@resultados); -- No existe esa persona--> ERROR
+SELECT @resultados AS Mensaje;
+
+CALL MostrarTurnos(67891234,'2023-05-30','2023-03-01',@resultados); -- Funciona
+SELECT @resultados AS Mensaje;
+ SELECT *FROM Personas;
+
+-- 9. Mostrar Insumos 
+
+CALL MostrarInsumos(NULL,@resultado); -- ERROR --> Valores Null
+SELECT @resultado AS Mensaje;
+
+CALL MostrarInsumos(13,@resultado); -- ERROR --> No hay mes 13
+SELECT @resultado AS Mensaje;
+
+CALL MostrarInsumos(0,@resultado); -- ERROR --> No hay mes 0
+SELECT @resultado AS Mensaje;
+
+CALL MostrarInsumos(05,@resultado); -- > Funciona
+SELECT @resultado AS Mensaje;
+
+-- 10. Busqueda de Mascotas por clientes
+
 CALL BusquedaMascotaCliente(NULL,@resultado); -- ERROR -->Valores NULL
 SELECT @resultado AS Mensaje;
 
@@ -1370,12 +1382,6 @@ SELECT @resultado AS Mensaje;
 
 CALL BusquedaMascotaCliente(38768990,@resultado); -- Funciona
 SELECT @resultado AS Mensaje;
-
--- 11. Incluir las sentencias de llamada a los procedimientos. Para cada uno hacer 4
--- llamadas (una con salida correcta y las otras 3 con diferentes errores explicando su
--- intención en un comentario).
-
--- Lo hicimos en cada apartado
 
 -- Consulta a AuditoriaMascotas
 SELECT * FROM AuditoriaMascotas;
